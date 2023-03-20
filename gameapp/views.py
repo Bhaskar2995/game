@@ -12,9 +12,11 @@ class home(View):
         if 'id' in kwargs:
             game_id = kwargs['id']
             games = Game.objects.filter(id=game_id)
+            if not len(games) > 0:
+                return JsonResponse({'error': "No entry found"})
         else:
             games = Game.objects.all()
-        
+            
         for game in games:
             dict = {'name': game.name, 'url':game.url, 'author':game.author, 'published_date':game.published_date}
             data.append(dict)
@@ -45,7 +47,7 @@ class home(View):
         game.published_date = data['published_date']
         game.save()
         return JsonResponse({'success':'Data changed successfully'})
-    
+     
     def delete(self,request,*args,**kwargs):
         game_id = kwargs['id']
         data = json.loads(request.body)
