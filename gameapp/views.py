@@ -4,20 +4,56 @@ from .models import Game
 from django.http import JsonResponse
 from django.core.serializers import serialize
 import json
-
+# from django.views.decorators.csrf import csrf_exempt
 
 class home(View):
     def get(self,request,*args, **kwargs):
-        print(kwargs)
+        data =[]
         if 'id' in kwargs:
             game_id = kwargs['id']
-            print(game_id)
             games = Game.objects.filter(id=game_id)
         else:
             games = Game.objects.all()
-        serialized_data = serialize("json", games)
-        serialized_data = json.loads(serialized_data)
-        return JsonResponse(serialized_data, safe=False, status=200)
+        
+        for game in games:
+            dict = {'name': game.name, 'url':game.url, 'author':game.author, 'published_date':game.published_date}
+            data.append(dict)
+
+        return JsonResponse(data, safe=False, status=200)
+    
     def post(self,request,*args, **kwargs):
-        games = Game.objects.all()
-        return JsonResponse()
+        game = json.loads(request.body)
+        games = Game(
+            name = game['name'],
+            url = game['url'],
+            author = game['author'],
+            published_date = game['published_date']
+        )
+        games.save()
+        return JsonResponse(game, safe=False, status=200)
+
+    def put(self,request,*args, **kwargs):
+        game_id = kwargs['id']
+        data = json.loads(request.body)
+        try:
+            game = Game.objects.get(id=game_id)
+        except:
+            return JsonResponse({'error': "No entry found"})
+        game.name = data['name']
+        game.url = data['url']
+        game.author = data['author']
+        game.published_date = data['published_date']
+        game.save()
+        return JsonResponse({'success':'Data changed successfully'})
+    
+    def delete(self,request,*args,**kwargs):
+        game_id = kwargs['id']
+        data = json.loads(request.body)
+        try:
+            game = Game.objects.get(id=game_id)
+            game.delete()
+        except:
+            return JsonResponse({'error': "No entry found"})
+        return JsonResponse({'success':'Game with id %s successfully deleted' %game_id})
+
+        
