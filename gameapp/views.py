@@ -32,7 +32,7 @@ class home(View):
             published_date = game['published_date']
         )
         games.save()
-        return JsonResponse(game, safe=False, status=200)
+        return JsonResponse({'success':"Data added successfully"}, safe=False, status=200)
 
     def put(self,request,*args, **kwargs):
         game_id = kwargs['id']
