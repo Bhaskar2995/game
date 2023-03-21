@@ -18,7 +18,7 @@ class Home(View):
                 }
         return JsonResponse(data,safe=False)
 
-class Game(View):
+class GameView(View):
     def get(self,request,*args, **kwargs):
         data =[]
         if 'id' in kwargs:
