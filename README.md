@@ -1,4 +1,4 @@
-# game CRUD operations
+# Game (CRUD operations)
 This is a an api (Application Programming Interface) where one can perform CRUD operations. 
 Website : http://bhaskar007.pythonanywhere.com
 GET request:  http://bhaskar007.pythonanywhere.com/games
