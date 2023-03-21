@@ -37,6 +37,9 @@ class GameView(View):
     
     def post(self,request,*args, **kwargs):
         game = json.loads(request.body)
+        check_game = Game.objects.filter(name = game['name'], url = game['url'], author = game['author'], published_date= game['published_date'])
+        if len(check_game) > 0:
+            return JsonResponse({'error':"Game with the same attributes is already present"})
         games = Game(
             name = game['name'],
             url = game['url'],
