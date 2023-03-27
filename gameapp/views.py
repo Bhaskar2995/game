@@ -25,7 +25,7 @@ class GameView(View):
             game_id = kwargs['id']
             games = Game.objects.filter(id=game_id)
             if not len(games) > 0:
-                return JsonResponse({'error': "No Game found with id %s" %game_id})
+                return JsonResponse({'error': "No Game found with id %s" %game_id}, status = 404)
         else:
             games = Game.objects.all()
             
@@ -55,7 +55,7 @@ class GameView(View):
         try:
             game = Game.objects.get(id=game_id)
         except:
-            return JsonResponse({'error': "No game found"})
+            return JsonResponse({'error': "No game found"}, status = 404)
         game.name = data['name']
         game.url = data['url']
         game.author = data['author']
