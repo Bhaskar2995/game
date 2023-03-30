@@ -3,11 +3,11 @@ This is a an api (Application Programming Interface) where one can perform CRUD 
 
 Website : http://bhaskar007.pythonanywhere.com
 
-GET request:  http://bhaskar007.pythonanywhere.com/games
+**GET request**:  http://bhaskar007.pythonanywhere.com/games
 
 output: All the games which are present in the database gets displayed
 
-POST request: http://bhaskar007.pythonanywhere.com/games
+**POST request**: http://bhaskar007.pythonanywhere.com/games
 
 example body : {
     "name": "Cricket",
@@ -16,7 +16,7 @@ example body : {
     "published_date": "2006-05-21"
     }
     
-PUT request: http://bhaskar007.pythonanywhere.com/games/{id}
+**PUT request**: http://bhaskar007.pythonanywhere.com/games/{id}
 
 example: http://bhaskar007.pythonanywhere.com/games/2
 body: 
@@ -27,7 +27,7 @@ body:
     "published_date": "2006-05-21"
     }
     
-DELETE request: http://bhaskar007.pythonanywhere.com/games/{id}
+**DELETE request**: http://bhaskar007.pythonanywhere.com/games/{id}
 
 example: http://bhaskar007.pythonanywhere.com/games/2
 Game with id=2 will be deleted
